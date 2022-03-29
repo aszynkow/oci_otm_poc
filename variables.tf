@@ -32,7 +32,7 @@ variable on_prem_ip_range {
 }
 
 variable ssh_authorized_keys {
-    default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgGSK4Q1fDVHojkHxDXJDz8bgEZ4+kWhAWG0TMNYovpG6pJe9TM0s0Qo7iZYxKaj0utY9WisptIS9nzBX7Mhb36QI4Je/i7MlMO+f5Vfsol5isjRlObDiW2GcoPL+EZIdNUgU8R3ovaUGcsx8dM4+RWQw/LKhbsYMWiFJwFr1e0ETnMM4WaZfyKM7uyq5SubEaoPiflwCueXksE5pSeuP/ov3Q82UkX2XZGjDALcMmE6xI91to64WLvovHmg7xmQZr0lsiyKiA3AaXVGuB95/Ngeq4e6DU4OZy1aDC2gyyW2jTpPwvbXbcki12ISuzkr+XRn0XS1hxrFhqIjFd1Ggt adam_szynk@d54895260571"
+    default = ""#"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCgGSK4Q1fDVHojkHxDXJDz8bgEZ4+kWhAWG0TMNYovpG6pJe9TM0s0Qo7iZYxKaj0utY9WisptIS9nzBX7Mhb36QI4Je/i7MlMO+f5Vfsol5isjRlObDiW2GcoPL+EZIdNUgU8R3ovaUGcsx8dM4+RWQw/LKhbsYMWiFJwFr1e0ETnMM4WaZfyKM7uyq5SubEaoPiflwCueXksE5pSeuP/ov3Q82UkX2XZGjDALcMmE6xI91to64WLvovHmg7xmQZr0lsiyKiA3AaXVGuB95/Ngeq4e6DU4OZy1aDC2gyyW2jTpPwvbXbcki12ISuzkr+XRn0XS1hxrFhqIjFd1Ggt adam_szynk@d54895260571"
 }
 
 variable env_name {
@@ -63,7 +63,20 @@ variable bastion_type {
     default = "STANDARD"
 }
 
-#WebVMS
+#AllVMS
+variable vm_device {
+    default = "/dev/oracleoci/oraclevdb"
+}
+
+variable vm_user {
+    default = "opc"
+}
+
+variable web_vm_mnt_path {
+    default = "/mnt1"
+}
+
+#WebVms
 variable vm_count {
     default = "4"
 }
@@ -99,6 +112,10 @@ variable  ocpus {
 #AppVMS
 variable app_vm_count {
     default = "6"
+}
+
+variable app_no_web_vm_count {
+    default = "2"
 }
 
 variable app_image_shape {

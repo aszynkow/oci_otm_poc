@@ -11,7 +11,7 @@ output "Vcn_id" {
 }
 
 output "ssh_private_key" {
-  value =  var.ssh_authorized_keys !=null ? "Provided by user" : nonsensitive(local.gen_priv_key)
+  value =  var.ssh_authorized_keys !="" ? "Provided by user" : nonsensitive(local.gen_priv_key)
    #sensitive = true
 }
 

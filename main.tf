@@ -10,6 +10,7 @@ locals {
 
     vm_count = var.vm_count !=null ? var.vm_count : 0
     app_vm_count = var.app_vm_count !=null ? var.app_vm_count : 0
+    app_no_web_vm_count = var.app_no_web_vm_count !=null ? var.app_no_web_vm_count : 0
     ad = data.oci_identity_availability_domains.AvailabilityDomains.availability_domains["1" - 1]["name"]
     home_region = lookup(element(data.oci_identity_region_subscriptions.HomeRegion.region_subscriptions, 0), "region_name")
 
@@ -52,6 +53,7 @@ locals {
     nsglb1_name = join("",[local.env_name,"nsglb1"])
     nsgprivlb1_name = join("",[local.env_name,"nsgprivlb1"])
     bcknd1_name = join("",[local.env_name,"bcknd1"])
+    bcknd2_name = join("",[local.env_name,"bcknd2"])
     lbsubnet_name = join("",[local.env_name,"lbsub"])
     lbdns_name = join("",[local.env_name,"lbsub"])
     lbrt_name = join("",[local.env_name,"lbrt"])
@@ -61,10 +63,10 @@ locals {
     silver_policy_name = join("",[local.env_name,"silverbckp"])
     volgroup_name = join("",[local.env_name,"volgrp"])
 
-    #bastion_name = join("",[local.env_name,"bst1"])
+    bastion_name = join("",[local.env_name,"bst1"])
 
     gen_public_key = chomp(tls_private_key.ssh_key.public_key_openssh)
     gen_priv_key = tls_private_key.ssh_key.private_key_pem
 
-    ssh_authorized_keys = var.ssh_authorized_keys !=null ? var.ssh_authorized_keys : local.gen_public_key
+    ssh_authorized_keys = var.ssh_authorized_keys !="" ? var.ssh_authorized_keys : local.gen_public_key
 }

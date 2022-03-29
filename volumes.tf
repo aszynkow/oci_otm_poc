@@ -27,7 +27,7 @@ resource oci_core_volume vol_web_attachment01 {
 resource oci_core_volume_attachment vmvolumeattachment01 {
   count = local.vm_count #- 1
   attachment_type = "paravirtualized"
-  device          = "/dev/oracleoci/oraclevdb"
+  device          = var.vm_device
   display_name    =  join("",["webvolatt",count.index])
   #encryption_in_transit_type = <<Optional value not found in discovery>>
   instance_id                         = oci_core_instance.webvm[count.index].id
@@ -43,7 +43,7 @@ resource oci_core_volume_attachment vmvolumeattachment01 {
 resource oci_core_volume_attachment appvolumeattachment01 {
   count = local.app_vm_count #- 1 
   attachment_type = "paravirtualized"
-  device          = "/dev/oracleoci/oraclevdb"
+  device          = var.vm_device
   display_name    = join("",["appvolatt",count.index])
   #encryption_in_transit_type = <<Optional value not found in discovery>>
   instance_id                         = oci_core_instance.appvm[count.index].id

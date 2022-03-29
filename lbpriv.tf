@@ -63,3 +63,30 @@ resource oci_load_balancer_backend otm_vm {
   weight           = "1"
 }
 
+resource oci_load_balancer_backend_set otm_app_wpaspoclbbs01 {
+  health_checker {
+    interval_ms         = "10000"
+    port                = "80"
+    protocol            = "TCP"
+    response_body_regex = ""
+    retries             = "3"
+    return_code         = "200"
+    timeout_in_millis   = "3000"
+    #url_path            = var.healthch_url_path#"/wpas/Login.html"
+  }
+  load_balancer_id = oci_load_balancer_load_balancer.otm_wpaspoclb.id
+  name             = local.bcknd2_name#"wpaspoclbbs01"
+  policy           = "ROUND_ROBIN"
+}
+
+resource oci_load_balancer_backend otm_app {
+  count = local.app_no_web_vm_count
+  backendset_name  = oci_load_balancer_backend_set.otm_app_wpaspoclbbs01.name
+  backup           = "false"
+  drain            = "false"
+  ip_address       = oci_core_instance.appvm[count.index].private_ip
+  load_balancer_id = oci_load_balancer_load_balancer.otm_wpaspoclb.id
+  offline          = "false"
+  port             = "80"
+  weight           = "1"
+}
